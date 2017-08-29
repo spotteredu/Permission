@@ -180,6 +180,10 @@ open class Permission: NSObject {
         if case .notifications = type { return statusNotifications }
         #endif
         
+        #if PERMISSION_USER_NOTIFICATIONS
+            if case .userNotifications = type { return statusUserNotifications }
+        #endif
+        
         #if PERMISSION_MICROPHONE
         if case .microphone = type { return statusMicrophone }
         #endif
@@ -314,6 +318,13 @@ open class Permission: NSObject {
         #if PERMISSION_NOTIFICATIONS
         if case .notifications = type {
             requestNotifications(callback)
+            return
+        }
+        #endif
+        
+        #if PERMISSION_USER_NOTIFICATIONS
+        if case .userNotifications = type {
+            requestUserNotifications(callback)
             return
         }
         #endif
