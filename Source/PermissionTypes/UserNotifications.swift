@@ -61,6 +61,8 @@
                     status = .denied
                 case .notDetermined:
                     status = .notDetermined
+                case .provisional:
+                    status = .provisional
                 }
                 semaphore.signal()
             }
