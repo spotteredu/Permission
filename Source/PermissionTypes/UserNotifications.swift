@@ -63,6 +63,8 @@
                     status = .notDetermined
                 case .provisional:
                     status = .provisional
+                @unknown default:
+                    status = .notDetermined
                 }
                 semaphore.signal()
             }
