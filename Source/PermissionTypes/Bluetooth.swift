@@ -32,12 +32,24 @@ internal let BluetoothManager = CBPeripheralManager(
 )
 
 extension Permission {
+    
     var statusBluetooth: PermissionStatus {
-        switch CBPeripheralManager.authorizationStatus() {
-        case .restricted: return .disabled
-        case .denied: return .denied
-        case .notDetermined, .authorized: break
-        @unknown default: break
+        if #available(iOS 13.0, *) {
+            switch CBCentralManager().authorization {
+            case .allowedAlways: break
+            case .restricted: return .disabled
+            case .denied: return .denied
+            case .notDetermined: break
+            @unknown default: break
+            }
+        }
+        else {
+            switch CBPeripheralManager.authorizationStatus() {
+            case .restricted: return .disabled
+            case .denied: return .denied
+            case .notDetermined, .authorized: break
+            @unknown default: break
+            }
         }
         
         guard UserDefaults.standard.stateBluetoothManagerDetermined else { return .notDetermined }

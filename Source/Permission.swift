@@ -100,42 +100,6 @@ open class Permission: NSObject {
     @available(iOS 10.0, *)
     public static let siri = Permission(type: .siri)
     #endif
-
-    #if PERMISSION_NOTIFICATIONS
-    /// Variable used to retain the notifications permission.
-    fileprivate static var _notifications: Permission?
-    
-    /// The permission to send notifications.
-    public static let notifications: Permission = {
-        let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-        _notifications = Permission(type: .notifications(settings))
-        return _notifications!
-    }()
-    
-    /// The permission to send notifications.
-    public static func notifications(types: UIUserNotificationType, categories: Set<UIUserNotificationCategory>?) -> Permission {
-        let settings   = UIUserNotificationSettings(types: types, categories: categories)
-        let permission = Permission(type: .notifications(settings))
-        _notifications = permission
-        return permission
-    }
-    
-    /// The permission to send notifications.
-    public static func notifications(types: UIUserNotificationType) -> Permission {
-        let settings   = UIUserNotificationSettings(types: types, categories: nil)
-        let permission = Permission(type: .notifications(settings))
-        _notifications = permission
-        return permission
-    }
-    
-    /// The permission to send notifications.
-    public static func notifications(categories: Set<UIUserNotificationCategory>?) -> Permission {
-        let settings  = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: categories)
-        let permission = Permission(type: .notifications(settings))
-        _notifications = permission
-        return permission
-    }
-    #endif
     
     #if PERMISSION_USER_NOTIFICATIONS
     /// Variable used to retain the notifications permission.
@@ -167,17 +131,9 @@ open class Permission: NSObject {
         if case .contacts = type { return statusContacts }
         #endif
         
-        #if PERMISSION_ADDRESS_BOOK
-        if case .addressBook = type { return statusAddressBook }
-        #endif
-        
         #if PERMISSION_LOCATION
         if case .locationAlways    = type { return statusLocationAlways }
         if case .locationWhenInUse = type { return statusLocationWhenInUse }
-        #endif
-        
-        #if PERMISSION_NOTIFICATIONS
-        if case .notifications = type { return statusNotifications }
         #endif
         
         #if PERMISSION_USER_NOTIFICATIONS
@@ -297,13 +253,6 @@ open class Permission: NSObject {
         }
         #endif
         
-        #if PERMISSION_ADDRESS_BOOK
-        if case .addressBook = type {
-            requestAddressBook(callback)
-            return
-        }
-        #endif
-        
         #if PERMISSION_LOCATION
         if case .locationAlways    = type {
             requestLocationAlways(callback)
@@ -312,13 +261,6 @@ open class Permission: NSObject {
         
         if case .locationWhenInUse = type {
             requestLocationWhenInUse(callback)
-            return
-        }
-        #endif
-        
-        #if PERMISSION_NOTIFICATIONS
-        if case .notifications = type {
-            requestNotifications(callback)
             return
         }
         #endif

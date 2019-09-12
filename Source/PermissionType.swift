@@ -41,10 +41,6 @@ public enum PermissionType {
     case locationWhenInUse
     #endif
     
-    #if PERMISSION_NOTIFICATIONS
-    case notifications(UIUserNotificationSettings)
-    #endif
-    
     #if PERMISSION_USER_NOTIFICATIONS
     @available(iOS 10.0, *) case userNotifications(UNAuthorizationOptions)
     #endif
@@ -103,10 +99,6 @@ extension PermissionType: CustomStringConvertible {
         #if PERMISSION_LOCATION
         if case .locationAlways    = self { return "Location" }
         if case .locationWhenInUse = self { return "Location" }
-        #endif
-        
-        #if PERMISSION_NOTIFICATIONS
-        if case .notifications = self { return "Notifications" }
         #endif
         
         #if PERMISSION_USER_NOTIFICATIONS
