@@ -25,11 +25,13 @@
 #if PERMISSION_BLUETOOTH
 import CoreBluetooth
 
-internal let BluetoothManager = CBPeripheralManager(
+internal let BluetoothPeripheralManager = CBPeripheralManager(
     delegate: Permission.bluetooth,
     queue: nil,
     options: [CBPeripheralManagerOptionShowPowerAlertKey: false]
 )
+
+internal var BluetoothManager: CBCentralManager?
 
 extension Permission {
     
@@ -54,20 +56,52 @@ extension Permission {
         
         guard UserDefaults.standard.stateBluetoothManagerDetermined else { return .notDetermined }
         
-        switch BluetoothManager.state {
-        case .unsupported, .poweredOff: return .disabled
-        case .unauthorized: return .denied
-        case .poweredOn: return .authorized
-        case .resetting, .unknown:
-            return UserDefaults.standard.statusBluetooth ?? .notDetermined
-        @unknown default: return .notDetermined
+        if #available(iOS 13.0, *) {
+            switch BluetoothManager?.state {
+            case .unsupported, .poweredOff: return .disabled
+            case .unauthorized: return .denied
+            case .poweredOn: return .authorized
+            case .resetting, .unknown, .none:
+                return UserDefaults.standard.statusBluetooth ?? .notDetermined
+            @unknown default: return .notDetermined
+            }
+        }
+        else {
+            switch BluetoothPeripheralManager.state {
+            case .unsupported, .poweredOff: return .disabled
+            case .unauthorized: return .denied
+            case .poweredOn: return .authorized
+            case .resetting, .unknown:
+                return UserDefaults.standard.statusBluetooth ?? .notDetermined
+            @unknown default: return .notDetermined
+            }
         }
     }
     
     func requestBluetooth(_ callback: Callback?) {
         UserDefaults.standard.requestedBluetooth = true
         
-        BluetoothManager.request(self)
+        
+        if #available(iOS 13.0, *) {
+            BluetoothManager = CBCentralManager()
+            BluetoothManager?.delegate = self
+        }
+        else {
+            BluetoothPeripheralManager.request(self)
+        }
+    }
+}
+
+extension Permission: CBCentralManagerDelegate {
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        UserDefaults.standard.stateBluetoothManagerDetermined = true
+        UserDefaults.standard.statusBluetooth = statusBluetooth
+        
+        guard UserDefaults.standard.requestedBluetooth else { return }
+        
+        callback?(statusBluetooth)
+        
+        UserDefaults.standard.requestedBluetooth = false
     }
 }
 
