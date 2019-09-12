@@ -10,6 +10,7 @@
 		3D42A7DB1D5F66B300236ABA /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42A7DA1D5F66B300236ABA /* SpeechRecognizer.swift */; };
 		3DC217D31D6EFD4A00600DFE /* MediaLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC217D21D6EFD4A00600DFE /* MediaLibrary.swift */; };
 		3F21DC7E1E30E0B900B3EF65 /* Siri.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21DC7C1E30B6DB00B3EF65 /* Siri.swift */; };
+		61ADF176232AF34C009530F3 /* Permission.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 61ADF175232AF34C009530F3 /* Permission.podspec */; };
 		61D7C4E71F54DA1A0018F072 /* UserNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D7C4E61F54DA1A0018F072 /* UserNotifications.swift */; };
 		6D0069B41C1868E8002FDB42 /* PermissionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0069B31C1868E8002FDB42 /* PermissionSet.swift */; };
 		6D0EBDBD1BFCF8B700C35F8E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EBDBC1BFCF8B700C35F8E /* Utilities.swift */; };
@@ -36,6 +37,7 @@
 		3D42A7DA1D5F66B300236ABA /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		3DC217D21D6EFD4A00600DFE /* MediaLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaLibrary.swift; sourceTree = "<group>"; };
 		3F21DC7C1E30B6DB00B3EF65 /* Siri.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Siri.swift; sourceTree = "<group>"; };
+		61ADF175232AF34C009530F3 /* Permission.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = Permission.podspec; sourceTree = SOURCE_ROOT; };
 		61D7C4E61F54DA1A0018F072 /* UserNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotifications.swift; sourceTree = "<group>"; };
 		6D0069B31C1868E8002FDB42 /* PermissionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionSet.swift; sourceTree = "<group>"; };
 		6D0EBDBC1BFCF8B700C35F8E /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				6D0069B31C1868E8002FDB42 /* PermissionSet.swift */,
 				6D491E771C9CA90B00611006 /* PermissionStatus.swift */,
 				6D491E751C9CA7DE00611006 /* PermissionType.swift */,
+				61ADF175232AF34C009530F3 /* Permission.podspec */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61ADF176232AF34C009530F3 /* Permission.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
